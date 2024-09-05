@@ -19,4 +19,37 @@ while True:
     else:
         print("Invalid input, please try again.")
 
-print(players)
+MAX_SCORE = 50
+player_scores = [0 for _ in range(players)]
+
+while max(player_scores) < MAX_SCORE:
+
+    for i in range(players):
+        print("\nPlayer", i + 1, "turn has just started!\n")
+        print("Your current score is:", player_scores[i],"\n")
+        current_score = 0
+
+        while True:
+            should_roll = input("Would you like to roll (y)? ")
+            if should_roll.lower() != "y":
+                break
+
+            value = roll()
+
+            if value == 1:
+                print("You rolled a 1! Turn done!")
+                current_score = 0
+                break
+            else:
+                current_score += value
+                print("You rolled a:", value)
+
+            print("Your score for this turn is:", current_score,"\n")
+
+        player_scores[i] += current_score
+        print("Your total score is:", player_scores[i],"\n")
+
+WINNING_SCORE = max(player_scores)
+WINNING_INDEX = player_scores.index(WINNING_SCORE)
+
+print("Player", WINNING_INDEX+1, "is the winner with a score of:", WINNING_SCORE)
